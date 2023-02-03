@@ -237,7 +237,7 @@ class ML_ALGOS:
         dataset=dataset.replace('?', np.nan)
         #res['Sample instances from the dataset are given below']=dataset.head()
 
-        res['Attributes and datatypes']=dataset.dtypes.tolist()
+        #res['Attributes and datatypes']=dataset.dtypes.tolist()
         train_li=[(x,self.data.columns.values [-1]) for x in self.data.columns.values [:-1] ]
         model=BayesianNetwork(train_li)
         res['Learning CPD using Maximum likelihood estimators']=''

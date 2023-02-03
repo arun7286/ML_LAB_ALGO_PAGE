@@ -18,7 +18,7 @@ def load_csv(path):
     global dataset
     dataset=pd.read_csv(path)
     return [dataset.to_html(classes='data table-responsive', header="true")]
-def getoutput(do_list,filename,do_algo):
+def getoutput(do_list,filename):
     dataset=pd.read_csv('static/datasets/{0}'.format(filename))
     algo_obj=ML_ALGOS(dataset)
     result_list={}
@@ -88,7 +88,7 @@ def getresult():
         for i in range(1,11):
             if request.form.get(str(i)):
                 do_algo[i]=request.form[str(i)]
-        result,best_algo=getoutput(do_algo,filename,do_algo)
+        result,best_algo=getoutput(do_algo,filename)
         print(result)
         return render_template('index.html',tables=data,filename=filename,result=result,do_algov=do_algo,best_algo=best_algo)
     else:
@@ -120,7 +120,7 @@ def GetResultAsJson():
     filename=request.args.get('filename')
     do_list=ast.literal_eval(request.args.get('do_algo'))
     load_csv('static/datasets/test_docs/{0}'.format(filename))
-    result_list=getoutput(do_list,filename)
+    result_list,done_algo=getoutput(do_list,filename)
     print(result_list)
     return result_list
 
